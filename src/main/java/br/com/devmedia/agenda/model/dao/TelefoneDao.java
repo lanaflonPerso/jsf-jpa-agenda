@@ -6,8 +6,9 @@ import java.util.Collection;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
-import br.com.devmedia.agenda.model.entidades.Contato;
-import br.com.devmedia.agenda.model.entidades.Telefone;
+import br.com.devmedia.agenda.model.entidade.Contato;
+import br.com.devmedia.agenda.model.entidade.Telefone;
+
 
 /**
  * <p>

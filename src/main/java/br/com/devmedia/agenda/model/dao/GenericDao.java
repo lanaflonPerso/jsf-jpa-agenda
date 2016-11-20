@@ -3,7 +3,8 @@ package br.com.devmedia.agenda.model.dao;
 import java.util.Collection;
 import java.util.List;
 
-import br.com.devmedia.agenda.model.entidades.Entidade;
+import br.com.devmedia.agenda.model.entidade.Entidade;
+
 
 public interface GenericDao<T extends Entidade> {
 

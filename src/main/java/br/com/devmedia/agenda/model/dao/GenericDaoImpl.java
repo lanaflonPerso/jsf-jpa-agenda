@@ -7,7 +7,8 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
-import br.com.devmedia.agenda.model.entidades.Entidade;
+import br.com.devmedia.agenda.model.entidade.Entidade;
+
 
 /**
  * <p>

@@ -2,7 +2,8 @@ package br.com.devmedia.agenda.model.dao;
 
 import javax.persistence.EntityManager;
 
-import br.com.devmedia.agenda.model.entidades.Grupo;
+import br.com.devmedia.agenda.model.entidade.Grupo;
+
 
 /**
  * <p>
