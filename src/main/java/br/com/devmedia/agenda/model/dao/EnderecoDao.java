@@ -1,9 +1,6 @@
 package br.com.devmedia.agenda.model.dao;
 
-import javax.persistence.EntityManager;
-
 import br.com.devmedia.agenda.model.entidade.Endereco;
-
 
 /**
  * <p>
@@ -24,8 +21,4 @@ import br.com.devmedia.agenda.model.entidade.Endereco;
  */
 public class EnderecoDao extends GenericDaoImpl<Endereco> {
 
-	public EnderecoDao( EntityManager entityManager ) {
-
-		super(entityManager);
-	}
 }

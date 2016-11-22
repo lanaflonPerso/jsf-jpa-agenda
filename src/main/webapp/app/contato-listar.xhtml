@@ -1,0 +1,94 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+</h:head>
+
+<ui:composition template="/template/layoutBase.xhtml">
+
+
+	<ui:define name="content">
+		<h:form id="form-listar">
+			
+			<p:growl id="growl" showDetail="true" />
+			<!-- <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" /> -->
+
+			<p:dataTable id="listContatosDataTable" var="contato" value="#{contatoListarController.contatos}">
+				<f:facet name="header"> Contatos Cadastados </f:facet>
+				<p:column headerText="Código">
+					<h:outputText value="#{contato.id}" />
+				</p:column>
+				<p:column headerText="Nome">
+					<h:outputText value="#{contato.nome}" />
+				</p:column>
+				<p:column headerText="Dt. Nascimento">
+					<h:outputText value="#{contato.dataNascimento}" />
+				</p:column>
+				<p:column style="width:10%;text-align: center">
+					<p:commandButton update=":form-listar:contatoDetail" oncomplete="PF('contatoDialog').show()" icon="ui-icon-search" title="Detalhar">
+						<f:setPropertyActionListener value="#{contato}" target="#{contatoListarController.contatoSelecionado}" />
+					</p:commandButton>
+					<p:commandButton icon="ui-icon-pencil" title="Editar" action="#{contatoCadastrarController.novo}">
+						<f:setPropertyActionListener value="#{contato}" target="#{contatoCadastrarController.contato}" />
+					</p:commandButton>
+					<p:commandButton icon="ui-icon-trash" title="Excluir" action="#{contatoListarController.excluir}" update=":form-listar:growl :form-listar:listContatosDataTable">
+						<f:setPropertyActionListener value="#{contato}" target="#{contatoListarController.contatoSelecionado}" />
+                        <p:confirm header="Exclusão de contato"  message="Tem certeza que deseja excluir este contato?" icon="ui-icon-alert" />
+                    </p:commandButton>
+                    
+				</p:column>
+			</p:dataTable>
+			
+			<p:separator/>
+			
+			<p:commandButton value="Novo" icon="fa fa-fw fa-plus" action="#{contatoCadastrarController.novo}" />
+			
+			<p:dialog header="Detalhe Contato" widgetVar="contatoDialog" modal="true" showEffect="fade"
+				hideEffect="fade" resizable="false">
+				<p:outputPanel id="contatoDetail" style="text-align:center;">
+					<p:panelGrid columns="2" rendered="#{not empty contatoListarController.contatoSelecionado}"
+						columnClasses="label,value">
+
+						<h:outputText value="Nome" />
+						<h:outputText value="#{contatoListarController.contatoSelecionado.nome}" />
+
+						<h:outputText value="Dt. Nascimento" />
+						<h:outputText value="#{contatoListarController.contatoSelecionado.dataNascimento}" />
+						
+						<h:outputText value="Descrição" />
+						<h:outputText value="#{contatoListarController.contatoSelecionado.endereco.descricao}" />
+						
+						<h:outputText value="Numero" />
+						<h:outputText value="#{contatoListarController.contatoSelecionado.endereco.numero}" />
+
+						<h:outputText value="Cep" />
+						<h:outputText value="#{contatoListarController.contatoSelecionado.endereco.cep}" />
+						
+						<h:outputText value="Complemento" />
+						<h:outputText value="#{contatoListarController.contatoSelecionado.endereco.complemento}" />
+						
+						
+					</p:panelGrid>
+				</p:outputPanel>
+			</p:dialog>
+			
+			<p:confirmDialog global="true">
+                <p:commandButton value="Sim" type="button"  styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
+                <p:commandButton value="Não" type="button"  styleClass="ui-confirmdialog-no" icon="ui-icon-close"/>
+            </p:confirmDialog>
+
+
+		</h:form>
+
+
+
+	</ui:define>
+
+</ui:composition>
+
+
+</html>

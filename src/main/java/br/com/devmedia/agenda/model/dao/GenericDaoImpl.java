@@ -8,6 +8,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
 import br.com.devmedia.agenda.model.entidade.Entidade;
+import br.com.devmedia.agenda.support.PersistenceManager;
 
 
 /**
@@ -35,9 +36,9 @@ public abstract class GenericDaoImpl<T extends Entidade> implements GenericDao<T
 	private final Class<T> clazz;
 
 	@SuppressWarnings("unchecked")
-	public GenericDaoImpl( EntityManager entityManager ) {
+	public GenericDaoImpl() {
 
-		this.entityManager = entityManager;
+		this.entityManager = PersistenceManager.INSTANCE.getEntityManager();
 
 		this.clazz = (Class<T>) ( (ParameterizedType) this.getClass().getGenericSuperclass() ).getActualTypeArguments()[0];
 	}

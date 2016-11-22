@@ -1,0 +1,71 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+</h:head>
+
+<ui:composition template="/template/layoutBase.xhtml">
+
+
+	<ui:define name="content">
+	
+		<h:form>
+		    <p:panel id="panel" header="Dados do Contato" style="margin-bottom:10px;">
+		        
+		        <p:growl id="msgs" showDetail="true" />
+		        
+		        <h:panelGrid columns="2" cellpadding="5">
+		            <p:outputLabel value="Nome: *" />
+		            <p:inputText value="#{contatoCadastrarController.contato.nome}" required="true" label="Nome"/>
+		
+		            <p:outputLabel value="Dt. Nascimento: *" />
+		            <p:inputText value="#{contatoCadastrarController.contato.dataNascimento}" required="true" label="Dt. Nascimento"/>
+		
+		            <p:outputLabel value="Endereço: " />
+		            <p:inputText value="#{contatoCadastrarController.contato.endereco.descricao}" />
+		
+		            <p:outputLabel value="Complemento: " />
+		            <p:inputText value="#{contatoCadastrarController.contato.endereco.complemento}" />
+		
+		            <p:outputLabel value="Número: " />
+		            <p:inputText value="#{contatoCadastrarController.contato.endereco.numero}" />
+		
+		            <p:outputLabel value="Cep: " />
+		            <p:inputText value="#{contatoCadastrarController.contato.endereco.cep}" />
+		        </h:panelGrid>
+		        
+		        <!--  <p:accordionPanel multiple="true">
+			        <p:tab title="Telefones">
+		                <p:outputLabel value="Nome: *" />
+			            <p:inputText value="#{contatoCadastrarController.contato.nome}" required="true" label="Nome"/>
+			
+			            <p:outputLabel value="Dt. Nascimento: *" />
+			            <p:inputText value="#{contatoCadastrarController.contato.dataNascimento}" required="true" label="Dt. Nascimento"/>
+			
+			        </p:tab>
+			        <p:tab title="Grupos">
+			           	<p:outputLabel value="Nome: *" />
+			            <p:inputText value="#{contatoCadastrarController.contato.nome}" required="true" label="Nome"/>
+			
+			            <p:outputLabel value="Dt. Nascimento: *" />
+			            <p:inputText value="#{contatoCadastrarController.contato.dataNascimento}" required="true" label="Dt. Nascimento"/>
+			
+			        </p:tab>
+			       
+			    </p:accordionPanel> -->
+		    </p:panel>
+		 
+		    <p:commandButton value="Salvar" update="panel" />
+		</h:form>
+	
+
+	</ui:define>
+
+</ui:composition>
+
+
+</html>

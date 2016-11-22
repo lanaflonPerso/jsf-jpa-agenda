@@ -3,12 +3,10 @@ package br.com.devmedia.agenda.model.dao;
 import java.util.ArrayList;
 import java.util.Collection;
 
-import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
 import br.com.devmedia.agenda.model.entidade.Contato;
 import br.com.devmedia.agenda.model.entidade.Telefone;
-
 
 /**
  * <p>
@@ -28,11 +26,6 @@ import br.com.devmedia.agenda.model.entidade.Telefone;
  * @version 1.0.0
  */
 public class TelefoneDao extends GenericDaoImpl<Telefone> {
-
-	public TelefoneDao( final EntityManager entityManager ) {
-
-		super(entityManager);
-	}
 
 	@SuppressWarnings("unchecked")
 	public Collection<Telefone> buscarPorContato(final Contato contato) {

@@ -5,21 +5,26 @@
 
 	<groupId>br.com.devmedia</groupId>
 
-	<artifactId>agenda-jsf-jpa</artifactId>
+	<artifactId>agenda-contatos</artifactId>
 
 	<packaging>war</packaging>
 
 	<version>0.0.1-SNAPSHOT</version>
 
-	<name>agenda-jsf-jpa Maven Webapp</name>
+	<name>agenda-contatos Maven Webapp</name>
 
 	<url>http://maven.apache.org</url>
 
 	<repositories>
 
 		<repository>
-			<id>atlassian-3rd-Party </id>
+			<id>atlassian-3rd-party-repo</id>
 			<url>https://maven.atlassian.com/3rdparty/</url>
+		</repository>
+
+		<repository>
+			<id>primefaces-repo</id>
+			<url>http://repository.primefaces.org/</url>
 		</repository>
 
 	</repositories>
@@ -59,6 +64,15 @@
 			<version>6.0</version>
 		</dependency>
 
+		<!-- PRIMEFACES THEME -->
+		<!-- https://mvnrepository.com/artifact/org.primefaces.themes/vader -->
+		<dependency>
+			<groupId>org.primefaces.themes</groupId>
+			<artifactId>vader</artifactId>
+			<version>1.0.10</version>
+		</dependency>
+
+
 		<!-- JSTL -->
 		<!-- https://mvnrepository.com/artifact/jstl/jstl -->
 		<dependency>
@@ -81,33 +95,17 @@
 		<dependency>
 			<groupId>postgresql</groupId>
 			<artifactId>postgresql</artifactId>
-			<version>9.4.1208-jdbc42-atlassian-hosted</version>
+			<version>9.1-901-1.jdbc4</version>
 		</dependency>
 
-
-		<!-- APACHE UTILs -->
-		<!-- https://mvnrepository.com/artifact/org.apache.commons/commons-lang3 -->
+		<!-- log4j -->
 		<dependency>
-			<groupId>org.apache.commons</groupId>
-			<artifactId>commons-lang3</artifactId>
-			<version>3.5</version>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>1.2.17</version>
 		</dependency>
 
-		<!-- Manipulação de XML -->
-		<!-- https://mvnrepository.com/artifact/jdom/jdom -->
-		<dependency>
-			<groupId>jdom</groupId>
-			<artifactId>jdom</artifactId>
-			<version>1.1</version>
-		</dependency>
 
-		<!-- TESTE UNITARIO -->
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>3.8.1</version>
-			<scope>test</scope>
-		</dependency>
 	</dependencies>
 
 	<build>
