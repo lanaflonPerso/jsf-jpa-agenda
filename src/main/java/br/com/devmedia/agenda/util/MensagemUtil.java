@@ -33,14 +33,14 @@ public class MensagemUtil {
 
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 
-		facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Atenção:", mensagem));
+		facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Atenção!!!", mensagem));
 	}
 
 	public static void showErro(String mensagem) {
 
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 
-		facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro:", mensagem));
+		facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Ops!!!", mensagem));
 	}
 
 	public static void showInfo(String mensagem) {

@@ -1,5 +1,6 @@
 package br.com.devmedia.agenda.controller;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -13,7 +14,10 @@ import br.com.devmedia.agenda.util.MensagemUtil;
 
 @ManagedBean(name = "contatoListarController")
 @ViewScoped
-public class ContatoListarController {
+public class ContatoListarController implements Serializable {
+
+	/** Atributo serialVersionUID. */
+	private static final long serialVersionUID = 421948242467658539L;
 
 	private AgendaFacade facade;
 
@@ -28,9 +32,9 @@ public class ContatoListarController {
 
 		setContatos(facade.buscarTodosContatos());
 	}
-	
-	public String home(){
-		
+
+	public String home() {
+
 		return "contato-listar";
 	}
 

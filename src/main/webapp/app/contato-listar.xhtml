@@ -31,7 +31,7 @@
 					<p:commandButton update=":form-listar:contatoDetail" oncomplete="PF('contatoDialog').show()" icon="ui-icon-search" title="Detalhar">
 						<f:setPropertyActionListener value="#{contato}" target="#{contatoListarController.contatoSelecionado}" />
 					</p:commandButton>
-					<p:commandButton icon="ui-icon-pencil" title="Editar" action="#{contatoCadastrarController.novo}">
+					<p:commandButton icon="ui-icon-pencil" title="Editar" action="#{contatoCadastrarController.editar}">
 						<f:setPropertyActionListener value="#{contato}" target="#{contatoCadastrarController.contato}" />
 					</p:commandButton>
 					<p:commandButton icon="ui-icon-trash" title="Excluir" action="#{contatoListarController.excluir}" update=":form-listar:growl :form-listar:listContatosDataTable">
@@ -75,7 +75,7 @@
 							<h:outputText value="#{contatoListarController.contatoSelecionado.endereco.complemento}" />
 						</h:panelGrid>
 					</p:fieldset>
-					<p:dataList value="#{contatoListarController.contatoSelecionado.telefones}" var="tel" type="ordered">
+					<p:dataList value="#{contatoListarController.contatoSelecionado.telefones}" var="tel">
 				        <f:facet name="header">
 				            Telefones
 				        </f:facet>

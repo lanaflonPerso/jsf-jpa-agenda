@@ -22,7 +22,7 @@ import br.com.devmedia.agenda.util.MensagemUtil;
 public class ContatoCadastrarController implements Serializable {
 
 	/** Atributo serialVersionUID. */
-	private static final long serialVersionUID = -8519093529481525831L;
+	private static final long serialVersionUID = -2593287029540118110L;
 
 	private AgendaFacade facade;
 
@@ -41,15 +41,11 @@ public class ContatoCadastrarController implements Serializable {
 
 		this.grupos = this.facade.buscarTodosGrupos();
 
-		if (this.contato == null) {
+		if (IsNullUtil.isNull(this.contato)) {
 
 			this.contato = new Contato();
 
-			this.contato.setEndereco(new Endereco());
-
-			this.contato.setTelefones(new ArrayList<>());
-
-			this.contato.setGrupos(new ArrayList<>());
+			this.instanciarObjetosSeNecessario();
 		}
 
 	}
@@ -68,24 +64,26 @@ public class ContatoCadastrarController implements Serializable {
 
 			this.facade.salvarContato(this.contato);
 
-			this.novo();
+			this.instanciarObjetosSeNecessario();
 
 			MensagemUtil.show("Ação realizada com sucesso!!!");
 
 		} catch (Exception e) {
 
-			MensagemUtil.showErro("Ops! Não foi possível completar sua ação. \n\t" + e.getMessage());
+			this.instanciarObjetosSeNecessario();
+
+			MensagemUtil.showErro("Não foi possível completar sua ação. \n\t" + e.getMessage());
 		}
 	}
 
 	private void validarCamposObrigatorios() {
 
-		if (IsNullUtil.isNotNullOrEmpty(this.contato.getNome())) {
+		if (IsNullUtil.isNullOrEmpty(this.contato.getNome())) {
 
 			throw new IllegalStateException("Nome é obrigatório!");
 		}
 
-		if (IsNullUtil.isNotNullOrEmpty(this.contato.getDataNascimento())) {
+		if (IsNullUtil.isNullOrEmpty(this.contato.getDataNascimento())) {
 
 			throw new IllegalStateException("Data de nascimento é obrigatória!");
 		}
@@ -104,12 +102,12 @@ public class ContatoCadastrarController implements Serializable {
 
 				throw new IllegalStateException("Endereço: Descrição é obrigatória!");
 			}
-			
+
 			if (IsNullUtil.isNullOrEmpty(this.contato.getEndereco().getNumero())) {
 
 				throw new IllegalStateException("Endereço: Número é obrigatório!");
 			}
-			
+
 			if (IsNullUtil.isNullOrEmpty(this.contato.getEndereco().getCep())) {
 
 				throw new IllegalStateException("Endereço: Cep é obrigatório!");
@@ -135,7 +133,7 @@ public class ContatoCadastrarController implements Serializable {
 
 	private void tratarTelefones() {
 
-		if (IsNullUtil.isNotNull(this.contato.getTelefones())) {
+		if (IsNullUtil.isNullOrEmpty(this.contato.getTelefones())) {
 
 			this.contato.setTelefones(null);
 		}
@@ -144,7 +142,7 @@ public class ContatoCadastrarController implements Serializable {
 
 	private void tratarGrupos() {
 
-		if (IsNullUtil.isNotNull(this.contato.getGrupos())) {
+		if (IsNullUtil.isNullOrEmpty(this.contato.getGrupos())) {
 
 			this.contato.setGrupos(null);
 		}
@@ -157,47 +155,54 @@ public class ContatoCadastrarController implements Serializable {
 
 		this.grupoSelecionado = new Grupo();
 
-		if (this.contato != null && this.contato.getId() != null) {
+		this.contato = new Contato();
 
-			this.contato = this.facade.buscarContatoPorID(this.contato.getId());
+		this.instanciarObjetosSeNecessario();
 
-			if (this.contato.getEndereco() == null) {
+		return "contato-cadastrar";
+	}
 
-				this.contato.setEndereco(new Endereco());
-			}
+	public String editar() {
 
-			if (this.contato.getTelefones() == null) {
+		this.telefoneSelecionado = new Telefone();
 
-				this.contato.setTelefones(new ArrayList<>());
-			}
+		this.grupoSelecionado = new Grupo();
 
-			if (this.contato.getGrupos() == null) {
+		this.contato = this.facade.buscarContatoPorID(this.contato.getId());
 
-				this.contato.setGrupos(new ArrayList<>());
-			}
-		} else {
+		this.instanciarObjetosSeNecessario();
 
-			this.contato = new Contato();
+		return "contato-cadastrar";
+	}
+
+	private void instanciarObjetosSeNecessario() {
+
+		if (IsNullUtil.isNull(this.contato.getEndereco())) {
 
 			this.contato.setEndereco(new Endereco());
+		}
+
+		if (IsNullUtil.isNull(this.contato.getTelefones())) {
 
 			this.contato.setTelefones(new ArrayList<>());
+		}
+
+		if (IsNullUtil.isNull(this.contato.getGrupos())) {
 
 			this.contato.setGrupos(new ArrayList<>());
 		}
 
-		return "contato-cadastrar";
 	}
 
 	public void adicionarTelefone() {
 
 		try {
-			if (this.telefoneSelecionado.getDdd() == null) {
+			if (IsNullUtil.isNullOrEmpty(this.telefoneSelecionado.getDdd())) {
 				MensagemUtil.showErro("Informe o DDD do telefone.");
 				return;
 			}
 
-			if (this.telefoneSelecionado.getNumero() == null) {
+			if (IsNullUtil.isNullOrEmpty(this.telefoneSelecionado.getNumero())) {
 				MensagemUtil.showErro("Informe o número do telefone.");
 				return;
 			}
@@ -207,7 +212,7 @@ public class ContatoCadastrarController implements Serializable {
 			MensagemUtil.show("Ação realizada com sucesso!!!");
 		} catch (Exception e) {
 
-			MensagemUtil.showErro("Ops! Não foi possível completar sua ação. \n\t" + e.getMessage());
+			MensagemUtil.showErro("Não foi possível completar sua ação. \n\t" + e.getMessage());
 		}
 
 	}
@@ -215,7 +220,7 @@ public class ContatoCadastrarController implements Serializable {
 	public void adicionarGrupo() {
 
 		try {
-			if (this.grupoSelecionado == null) {
+			if (IsNullUtil.isNull(this.grupoSelecionado)) {
 				MensagemUtil.showErro("Selecione o Grupo para esta ação.");
 				return;
 			}
@@ -231,7 +236,7 @@ public class ContatoCadastrarController implements Serializable {
 			MensagemUtil.show("Ação realizada com sucesso!!!");
 		} catch (Exception e) {
 
-			MensagemUtil.showErro("Ops! Não foi possível completar sua ação. \n\t" + e.getMessage());
+			MensagemUtil.showErro("Não foi possível completar sua ação. \n\t" + e.getMessage());
 		}
 
 	}
@@ -240,21 +245,31 @@ public class ContatoCadastrarController implements Serializable {
 
 		try {
 
+			// if(IsNullUtil.isNotNull(this.telefoneSelecionado) && IsNullUtil.isNotNullOrEmpty(this.telefoneSelecionado.getId())){
+			//
+			// this.facade.excluirTelefone(this.telefoneSelecionado);
+			//
+			// this.facade.flush();
+			// }
+
+			this.contato.getTelefones().remove(this.telefoneSelecionado);
+
 			MensagemUtil.show("Ação realizada com sucesso!!!");
 		} catch (Exception e) {
 
-			MensagemUtil.showErro("Ops! Não foi possível completar sua ação. \n\t" + e.getMessage());
+			MensagemUtil.showErro("Não foi possível completar sua ação. \n\t" + e.getMessage());
 		}
 	}
 
 	public void excluirGrupo() {
 
 		try {
+			this.contato.getGrupos().remove(this.grupoSelecionado);
 
 			MensagemUtil.show("Ação realizada com sucesso!!!");
 		} catch (Exception e) {
 
-			MensagemUtil.showErro("Ops! Não foi possível completar sua ação. \n\t" + e.getMessage());
+			MensagemUtil.showErro("Não foi possível completar sua ação. \n\t" + e.getMessage());
 		}
 	}
 

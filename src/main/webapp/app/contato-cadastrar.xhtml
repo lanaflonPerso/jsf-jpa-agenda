@@ -20,11 +20,10 @@
 
 				<h:panelGrid columns="4" cellpadding="5">
 					<p:outputLabel value="Nome: *" />
-					<p:inputText value="#{contatoCadastrarController.contato.nome}" required="true" label="Nome" />
+					<p:inputText value="#{contatoCadastrarController.contato.nome}" label="Nome" />
 
 					<p:outputLabel value="Dt. Nascimento: *" />
-					<p:inputText value="#{contatoCadastrarController.contato.dataNascimento}" required="true"
-						label="Dt. Nascimento">
+					<p:inputText value="#{contatoCadastrarController.contato.dataNascimento}" label="Dt. Nascimento">
 						<f:convertDateTime type="date" pattern="dd/MM/yyyy" />
 					</p:inputText>
 
@@ -103,7 +102,7 @@
 								<p:commandButton icon="ui-icon-trash" title="Excluir"
 									action="#{contatoCadastrarController.excluirGrupo}"
 									update=":form-cadastrar:growl_msg listGruposDataTable">
-									<f:setPropertyActionListener value="grupo"
+									<f:setPropertyActionListener value="#{grupo}"
 										target="#{contatoCadastrarController.grupoSelecionado}" />
 									<p:confirm header="Exclusão de grupo" message="Tem certeza que deseja excluir este grupo?"
 										icon="ui-icon-alert" />
@@ -117,15 +116,14 @@
 			
 			<p:separator />
 
-			<p:commandButton value="Voltar" action="#{contatoListarController.home}" />
+			<p:commandButton value="Voltar" action="#{contatoListarController.home()}"/>
 
 			<p:commandButton value="Salvar" action="#{contatoCadastrarController.salvar}" update=":form-cadastrar:growl_msg"/>
 
 
 
 			<p:confirmDialog global="true">
-				<p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes"
-					icon="ui-icon-check" />
+				<p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
 				<p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
 			</p:confirmDialog>
 		</h:form>
