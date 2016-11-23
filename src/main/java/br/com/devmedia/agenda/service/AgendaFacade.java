@@ -9,6 +9,16 @@ import br.com.devmedia.agenda.model.entidade.Telefone;
 public interface AgendaFacade {
 
 	/**
+	 * Método responsável por recuperar o contato para edição
+	 *
+	 * @author DevMedia - http://www.devmedia.com.br/
+	 *
+	 * @param id
+	 * @return
+	 */
+	Contato buscarContatoPorID(Long id);
+
+	/**
 	 * Método responsável por recuperar os grupos para preencher o combobox
 	 *
 	 * @author DevMedia - http://www.devmedia.com.br/
@@ -56,4 +66,5 @@ public interface AgendaFacade {
 	void flush();
 
 	void clear();
+
 }

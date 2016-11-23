@@ -12,56 +12,124 @@
 
 
 	<ui:define name="content">
+
+		<h:form id="form-cadastrar">
+			<p:growl id="growl_msg" showDetail="true" />
+			<p:panel id="panel" header="Dados do Contato" style="margin-bottom:10px;">
+
+
+				<h:panelGrid columns="4" cellpadding="5">
+					<p:outputLabel value="Nome: *" />
+					<p:inputText value="#{contatoCadastrarController.contato.nome}" required="true" label="Nome" />
+
+					<p:outputLabel value="Dt. Nascimento: *" />
+					<p:inputText value="#{contatoCadastrarController.contato.dataNascimento}" required="true"
+						label="Dt. Nascimento">
+						<f:convertDateTime type="date" pattern="dd/MM/yyyy" />
+					</p:inputText>
+
+				</h:panelGrid>
+				<p:fieldset legend="Endereço" style="margin-bottom:20px">
+					<h:panelGrid columns="2" cellpadding="5">
+						<p:outputLabel value="Endereço: " />
+						<p:inputText value="#{contatoCadastrarController.contato.endereco.descricao}" />
 	
-		<h:form>
-		    <p:panel id="panel" header="Dados do Contato" style="margin-bottom:10px;">
-		        
-		        <p:growl id="msgs" showDetail="true" />
-		        
-		        <h:panelGrid columns="2" cellpadding="5">
-		            <p:outputLabel value="Nome: *" />
-		            <p:inputText value="#{contatoCadastrarController.contato.nome}" required="true" label="Nome"/>
-		
-		            <p:outputLabel value="Dt. Nascimento: *" />
-		            <p:inputText value="#{contatoCadastrarController.contato.dataNascimento}" required="true" label="Dt. Nascimento"/>
-		
-		            <p:outputLabel value="Endereço: " />
-		            <p:inputText value="#{contatoCadastrarController.contato.endereco.descricao}" />
-		
-		            <p:outputLabel value="Complemento: " />
-		            <p:inputText value="#{contatoCadastrarController.contato.endereco.complemento}" />
-		
-		            <p:outputLabel value="Número: " />
-		            <p:inputText value="#{contatoCadastrarController.contato.endereco.numero}" />
-		
-		            <p:outputLabel value="Cep: " />
-		            <p:inputText value="#{contatoCadastrarController.contato.endereco.cep}" />
-		        </h:panelGrid>
-		        
-		        <!--  <p:accordionPanel multiple="true">
-			        <p:tab title="Telefones">
-		                <p:outputLabel value="Nome: *" />
-			            <p:inputText value="#{contatoCadastrarController.contato.nome}" required="true" label="Nome"/>
+						<p:outputLabel value="Complemento: " />
+						<p:inputText value="#{contatoCadastrarController.contato.endereco.complemento}" />
+	
+						<p:outputLabel value="Número: " />
+						<p:inputText value="#{contatoCadastrarController.contato.endereco.numero}" />
+	
+						<p:outputLabel value="Cep: " />
+						<p:inputText value="#{contatoCadastrarController.contato.endereco.cep}" />
+					</h:panelGrid>
+				</p:fieldset>
+				<p:accordionPanel multiple="true" id="acordion">
+					<p:tab title="Telefones" id="tabTelefone">
+						<h:panelGrid columns="5" cellpadding="5">
+							<p:outputLabel value="DDD: *" />
+							<p:inputText value="#{contatoCadastrarController.telefoneSelecionado.ddd}" label="DDD" />
+
+							<p:outputLabel value="Número: *" />
+							<p:inputText value="#{contatoCadastrarController.telefoneSelecionado.numero}" label="Número" />
+
+							<p:commandButton value="Add" action="#{contatoCadastrarController.adicionarTelefone}"
+								update=":form-cadastrar:growl_msg listTelefonesDataTable" />
+						</h:panelGrid>
+
+						<p:dataTable value="#{contatoCadastrarController.contato.telefones}" var="telefone"
+							id="listTelefonesDataTable">
+							<p:column headerText="DDD">
+								<h:outputText value="#{telefone.ddd}" />
+							</p:column>
+							<p:column headerText="Número">
+								<h:outputText value="#{telefone.numero}" />
+							</p:column>
+							<p:column style="width:10%;text-align: center">
+								<p:commandButton icon="ui-icon-trash" title="Excluir"
+									action="#{contatoCadastrarController.excluirTelefone}"
+									update=":form-cadastrar:growl_msg listTelefonesDataTable">
+									<f:setPropertyActionListener value="#{telefone}"
+										target="#{contatoCadastrarController.telefoneSelecionado}" />
+									<p:confirm header="Exclusão de telefone"
+										message="Tem certeza que deseja excluir este telefone?" icon="ui-icon-alert" />
+								</p:commandButton>
+							</p:column>
+						</p:dataTable>
+
+					</p:tab>
+					<p:tab title="Grupos">
+						<h:panelGrid columns="3" cellpadding="5">
+							<p:outputLabel for="combo_grupos" value="Grupos:" />
+							<p:selectOneListbox id="combo_grupos" value="#{contatoCadastrarController.grupoSelecionado}"
+								style="width:150px">
+								<f:selectItems value="#{contatoCadastrarController.grupos}" var="grupo"
+									itemLabel="#{grupo.nome}" itemValue="#{grupo}" />
+							</p:selectOneListbox>
+
+							<p:commandButton value="Add" action="#{contatoCadastrarController.adicionarGrupo}"
+								update=":form-cadastrar:growl_msg listGruposDataTable" />
+						</h:panelGrid>
+
+						<p:dataTable value="#{contatoCadastrarController.contato.grupos}" var="grupo"
+							id="listGruposDataTable">
+							<p:column headerText="Nome">
+								<h:outputText value="#{grupo.nome}" />
+							</p:column>
+							<p:column headerText="Descrição">
+								<h:outputText value="#{grupo.descricao}" />
+							</p:column>
+							<p:column style="width:10%;text-align: center">
+								<p:commandButton icon="ui-icon-trash" title="Excluir"
+									action="#{contatoCadastrarController.excluirGrupo}"
+									update=":form-cadastrar:growl_msg listGruposDataTable">
+									<f:setPropertyActionListener value="grupo"
+										target="#{contatoCadastrarController.grupoSelecionado}" />
+									<p:confirm header="Exclusão de grupo" message="Tem certeza que deseja excluir este grupo?"
+										icon="ui-icon-alert" />
+								</p:commandButton>
+							</p:column>
+						</p:dataTable>
+					</p:tab>
+
+				</p:accordionPanel>
+			</p:panel>
 			
-			            <p:outputLabel value="Dt. Nascimento: *" />
-			            <p:inputText value="#{contatoCadastrarController.contato.dataNascimento}" required="true" label="Dt. Nascimento"/>
-			
-			        </p:tab>
-			        <p:tab title="Grupos">
-			           	<p:outputLabel value="Nome: *" />
-			            <p:inputText value="#{contatoCadastrarController.contato.nome}" required="true" label="Nome"/>
-			
-			            <p:outputLabel value="Dt. Nascimento: *" />
-			            <p:inputText value="#{contatoCadastrarController.contato.dataNascimento}" required="true" label="Dt. Nascimento"/>
-			
-			        </p:tab>
-			       
-			    </p:accordionPanel> -->
-		    </p:panel>
-		 
-		    <p:commandButton value="Salvar" update="panel" />
+			<p:separator />
+
+			<p:commandButton value="Voltar" action="#{contatoListarController.home}" />
+
+			<p:commandButton value="Salvar" action="#{contatoCadastrarController.salvar}" update=":form-cadastrar:growl_msg"/>
+
+
+
+			<p:confirmDialog global="true">
+				<p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes"
+					icon="ui-icon-check" />
+				<p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+			</p:confirmDialog>
 		</h:form>
-	
+
 
 	</ui:define>
 

@@ -28,6 +28,11 @@ public class ContatoListarController {
 
 		setContatos(facade.buscarTodosContatos());
 	}
+	
+	public String home(){
+		
+		return "contato-listar";
+	}
 
 	public void excluir() {
 

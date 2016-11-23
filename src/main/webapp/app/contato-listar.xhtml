@@ -15,7 +15,6 @@
 		<h:form id="form-listar">
 			
 			<p:growl id="growl" showDetail="true" />
-			<!-- <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" /> -->
 
 			<p:dataTable id="listContatosDataTable" var="contato" value="#{contatoListarController.contatos}">
 				<f:facet name="header"> Contatos Cadastados </f:facet>
@@ -47,32 +46,48 @@
 			
 			<p:commandButton value="Novo" icon="fa fa-fw fa-plus" action="#{contatoCadastrarController.novo}" />
 			
-			<p:dialog header="Detalhe Contato" widgetVar="contatoDialog" modal="true" showEffect="fade"
-				hideEffect="fade" resizable="false">
-				<p:outputPanel id="contatoDetail" style="text-align:center;">
-					<p:panelGrid columns="2" rendered="#{not empty contatoListarController.contatoSelecionado}"
-						columnClasses="label,value">
+			<p:dialog header="Detalhe Contato" widgetVar="contatoDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="true">
+			
+				<p:outputPanel id="contatoDetail" style="text-align:left;">
+					<h:panelGrid columns="2" cellpadding="5" >
 
-						<h:outputText value="Nome" />
+						<h:outputText value="Nome:" style="font-weight:bold"/>
 						<h:outputText value="#{contatoListarController.contatoSelecionado.nome}" />
 
-						<h:outputText value="Dt. Nascimento" />
+						<h:outputText value="Dt. Nascimento:" style="font-weight:bold"/>
 						<h:outputText value="#{contatoListarController.contatoSelecionado.dataNascimento}" />
 						
-						<h:outputText value="Descrição" />
-						<h:outputText value="#{contatoListarController.contatoSelecionado.endereco.descricao}" />
-						
-						<h:outputText value="Numero" />
-						<h:outputText value="#{contatoListarController.contatoSelecionado.endereco.numero}" />
-
-						<h:outputText value="Cep" />
-						<h:outputText value="#{contatoListarController.contatoSelecionado.endereco.cep}" />
-						
-						<h:outputText value="Complemento" />
-						<h:outputText value="#{contatoListarController.contatoSelecionado.endereco.complemento}" />
 						
 						
-					</p:panelGrid>
+					</h:panelGrid>
+					<p:fieldset legend="Endereço" style="margin-bottom:20px">
+						<h:panelGrid columns="2" cellpadding="5">
+							<h:outputText value="Descrição:" style="font-weight:bold"/>
+							<h:outputText value="#{contatoListarController.contatoSelecionado.endereco.descricao}" />
+							
+							<h:outputText value="Numero:" style="font-weight:bold"/>
+							<h:outputText value="#{contatoListarController.contatoSelecionado.endereco.numero}" />
+	
+							<h:outputText value="Cep:" style="font-weight:bold"/>
+							<h:outputText value="#{contatoListarController.contatoSelecionado.endereco.cep}" />
+							
+							<h:outputText value="Complemento:" style="font-weight:bold"/>
+							<h:outputText value="#{contatoListarController.contatoSelecionado.endereco.complemento}" />
+						</h:panelGrid>
+					</p:fieldset>
+					<p:dataList value="#{contatoListarController.contatoSelecionado.telefones}" var="tel" type="ordered">
+				        <f:facet name="header">
+				            Telefones
+				        </f:facet>
+				        (#{tel.ddd}) #{tel.numero}
+				    </p:dataList>
+					<p:dataList value="#{contatoListarController.contatoSelecionado.grupos}" var="grp">
+				        <f:facet name="header">
+				            Grupos
+				        </f:facet>
+				        #{grp.nome} -  #{grp.descricao}
+				    </p:dataList>
+					
 				</p:outputPanel>
 			</p:dialog>
 			

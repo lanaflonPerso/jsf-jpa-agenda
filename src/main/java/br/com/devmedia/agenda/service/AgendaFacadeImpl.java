@@ -54,6 +54,24 @@ public class AgendaFacadeImpl implements AgendaFacade {
 	 *
 	 * {@inheritDoc}
 	 *
+	 * @see br.com.devmedia.agenda.service.AgendaFacade#buscarContatoPorID(java.lang.Long)
+	 */
+	@Override
+	public Contato buscarContatoPorID(Long id) {
+
+		if (id != null) {
+
+			return this.contatoDao.selecionarPorId(id);
+		}
+		return null;
+	}
+
+	/**
+	 * Descrição Padrão: <br>
+	 * <br>
+	 *
+	 * {@inheritDoc}
+	 *
 	 * @see br.com.devmedia.agenda.service.AgendaFacade#buscarTodosGrupos()
 	 */
 	@Override
@@ -94,7 +112,7 @@ public class AgendaFacadeImpl implements AgendaFacade {
 
 			this.beginTransaction();
 
-			// Vinculando os contatos
+			// Vinculando os contatos, pois a JPA não faz isso automaticamente
 			if (contato.getTelefones() != null) {
 
 				contato.getTelefones().stream().forEach(t -> t.setContato(contato));
@@ -227,4 +245,5 @@ public class AgendaFacadeImpl implements AgendaFacade {
 
 		this.getEntityManager().getTransaction().rollback();
 	}
+
 }
